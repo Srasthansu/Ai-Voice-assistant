@@ -1,0 +1,128 @@
+/*  AI INTERFACE */
+
+body{
+background: radial-gradient(circle at center,#020617,#000000);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:#00eaff;
+font-family: 'Segoe UI', sans-serif;
+}
+
+/* Center Container */
+
+.ai-container{
+text-align:center;
+}
+
+/* Triangle AI Core */
+
+.triangle{
+    width:0;
+    height:0;
+    border-left:90px solid transparent;
+    border-right:90px solid transparent;
+    border-bottom:160px solid #21c6d3;
+    margin:auto;
+    position:relative;
+    z-index:2;
+
+    filter: drop-shadow(0 0 25px #21c6d3)
+            drop-shadow(0 0 40px #21c6d3);
+}
+
+/* Inner Glow Triangle */
+
+.triangle::after{
+content:'';
+position:absolute;
+left:-70px;
+top:25px;
+width:0;
+height:0;
+border-left:70px solid transparent;
+border-right:70px solid transparent;
+border-bottom:120px solid rgba(0,234,255,0.6);
+animation: pulse 3s infinite alternate;
+}
+
+/* Glow Animation */
+
+@keyframes pulse{
+from{
+filter:drop-shadow(0 0 25px #21c6d3);
+transform:scale(1);
+}
+to{
+filter:drop-shadow(0 0 40px #21c6d3);
+transform:scale(1.05);
+}
+}
+
+/* Title */
+
+.ai-title{
+font-size:36px;
+letter-spacing:4px;
+margin-bottom:40px;
+}
+
+/* Status Text */
+
+.status{
+margin-top:30px;
+font-size:20px;
+letter-spacing:2px;
+}
+
+/* Z index*/
+
+.ai-container{
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+/* Button */
+
+.listen-btn{
+margin-top:30px;
+background:#00eaff;
+border:none;
+color:black;
+padding:12px 30px;
+font-weight:bold;
+border-radius:30px;
+transition:0.3s;
+}
+
+.listen-btn:hover{
+box-shadow:0 0 20px #00eaff;
+transform:scale(1.05);
+}
+
+#particles-js{
+    position:absolute;
+    width:350px;
+    height:350px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:0;
+}
+.ask-btn{
+    margin-top:30px;
+    background:#00eaff;
+    border:none;
+    color:black;
+    padding:12px 30px;
+    font-weight:bold;
+    border-radius:30px;
+    text-align:center;
+    min-width:220px;
+}
+.cursor::after{
+    content:"|";
+    margin-left:5px;
+}
