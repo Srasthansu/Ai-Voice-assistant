@@ -13,7 +13,7 @@ $(document).ready(function(){
             index++;
             if(index > text.length){
                 isDeleting = true;
-                setTimeout(typeLoop, 1000); // pause before deleting
+                setTimeout(typeLoop, 1500); // slower pause
                 return;
             }
         } else {
@@ -23,7 +23,7 @@ $(document).ready(function(){
             }
         }
 
-        setTimeout(typeLoop, isDeleting ? 40 : 80);
+        setTimeout(typeLoop, isDeleting ? 100 : 180); // slower typing
     }
 
     typeLoop();
