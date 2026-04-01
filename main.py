@@ -1,6 +1,10 @@
 import eel
 
+from engine.features import *
+
 eel.init('www')
+
+playAssistantSound()
 
 eel.browsers.set_path(
     "chrome",

@@ -28,8 +28,23 @@ text-align:center;
     position:relative;
     z-index:2;
 
-    filter: drop-shadow(0 0 25px #21c6d3)
-            drop-shadow(0 0 40px #21c6d3);
+    /* 🔥 Neon Glow */
+    filter: drop-shadow(0 0 10px #00eaff)
+            drop-shadow(0 0 25px #00eaff)
+            drop-shadow(0 0 50px #00eaff);
+
+    animation: neonPulse 2s infinite alternate;
+}
+
+@keyframes neonPulse{
+    from{
+        filter: drop-shadow(0 0 10px #00eaff)
+                drop-shadow(0 0 20px #00eaff);
+    }
+    to{
+        filter: drop-shadow(0 0 25px #00eaff)
+                drop-shadow(0 0 60px #00eaff);
+    }
 }
 
 /* Inner Glow Triangle */
@@ -126,3 +141,129 @@ transform:scale(1.05);
     content:"|";
     margin-left:5px;
 }
+/* Input Filed Start*/
+
+#TextInput {
+    background-color: #181818a8;
+
+    /* 🔥 make it horizontal */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* 🔥 full width */
+    width: 320px;   /* increase if needed */
+    padding: 8px 10px;
+
+    border: 3px solid #1900ff;
+    border-radius: 10px;
+    margin: 20px auto;
+
+    /* 🔥 full glow box */
+    box-shadow: 
+        0 0 15px rgb(25, 0, 255),
+        0 0 30px rgb(25, 0, 255),
+        inset 0 0 5px rgb(25, 0, 255);
+}
+  
+  .input-field {
+    background-color: transparent;
+    border: none;
+    width: 70%;   /* so icons fit */
+    outline: none;
+    color: white;
+    font-family: cursive;
+}
+  
+  
+  .glow-on-hover {
+    width: 30px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    padding: 0px;
+    margin-left: 5px;
+  }
+  
+  .glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  .glow-on-hover:active {
+    color: #181818a8
+  }
+  
+  .glow-on-hover:active:after {
+    background: transparent;
+  }
+  
+  .glow-on-hover:hover:before {
+    opacity: 1;
+  }
+  
+  .glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowing {
+    0% {
+      background-position: 0 0;
+    }
+  
+    50% {
+      background-position: 400% 0;
+    }
+  
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  
+  /* Input Filed End*/
+
+  #siri-container{
+    margin-top: 20px;
+    text-align: center;
+}
+
+#siri-wave{
+    width: 300px;
+    height: 100px;
+    margin: 10px auto;
+}
+
+.siri-text{
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #00eaff;
+}
+
+

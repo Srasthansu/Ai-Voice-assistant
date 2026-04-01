@@ -5,95 +5,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Voice Assistant</title>
+
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- Particle js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
-        type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Texllate js -->
-     <link rel="stylesheet" href="assets/vendore/texllate/animate.css">
-     
-     <link rel="stylesheet" href="style.css">
+
     <style>
         body {
-            background: #000000;
+            background: #000;
             color: white;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            font-family: Arial, Helvetica, sans-serif;
+            overflow: hidden;
         }
 
-        /* Triangle AI Core */
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 120px solid transparent;
-            border-right: 120px solid transparent;
-            border-bottom: 200px solid #f0e6ee;
-            position: relative;
-            animation: glow 4s linear infinite;
+        /* Siri first screen */
+        #siri-start {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
 
-        @keyframes glow {
-            from {
-                filter: drop-shadow(0 0 10px #cc62b1);
-            }
-
-            to {
-                filter: drop-shadow(0 0 40px #ececea);
-            }
+        #siri-wave {
+            width: 300px;
+            height: 100px;
+            margin: auto;
         }
 
-        .ai-text {
-            margin-top: 40px;
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 3px;
+        .siri-text {
+            color: #00eaff;
+            margin-bottom: 10px;
         }
 
-        .listen-btn {
-            margin-top: 30px;
+        /* Hide main UI initially */
+        #main-ui {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <div id="particles-js"></div>
 
-    <div class="ai-container">
-    <h1 class="ai-title">JOY_BOY</h1>
-
-    <div class="triangle"></div>
-
-    <p class="status">AI CORE ACTIVE</p>
-    <button class="listen-btn ask-btn"onclick="runPython()"></button>
-    
-</div>
-        <canvas id="canvasOne" width="700" height="420" style="position: absolute;"></canvas>
+    <!-- 🔥 SIRI START SCREEN -->
+    <div id="siri-start">
+        <h3 class="siri-text">Initializing AI Assistant...</h3>
+        <div id="siri-wave"></div>
     </div>
-    <!--Jquery  -->
-   	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-     
-    <!-- Particle JS -->
-     <script src="script.js"></script>
+    <!-- 🔥 MAIN UI -->
+    <div id="main-ui">
 
-    <!-- Texllate JS -->
-    <script src="assets/vendore/texllate/jquery.fittext.js"></script>
-    <script src="assets/vendore/texllate/jquery.lettering.js"></script>
-    <script src="http://jschr.github.io/textillate/jquery.textillate.js"></script>
+        <div class="ai-container">
 
+            <h1 class="ai-title">JOY_BOY</h1>
+
+            <div class="triangle"></div>
+
+            <p class="status">AI CORE ACTIVE</p>
+
+            <button class="listen-btn ask-btn" onclick="runPython()"></button>
+
+            <div id="TextInput" class="d-flex">
+                <input type="text" class="input-field" placeholder="Type here....">
+
+                <button class="glow-on-hover"><i class="bi bi-mic"></i></button>
+                <button class="glow-on-hover"><i class="bi bi-chat-dots"></i></button>
+                <button class="glow-on-hover"><i class="bi bi-gear"></i></button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Siri Wave -->
+    <script src="https://unpkg.com/siriwave/dist/siriwave.umd.min.js"></script>
+
+    <!-- Your Scripts -->
+    <script src="script.js"></script>
     <script src="main.js"></script>
-    <script src="/eel.js"></script>
-    
-
 
 </body>
 
