@@ -65,4 +65,33 @@ $(document).ready(function(){
 
     }, 3000); // delay (3 sec)
 
+    //mic button click event
+ $("#MicBtn").click(function () {
+
+     // 🔥 hide main UI
+    $("#main-ui").fadeOut(300);
+
+    // 🔥 show siri screen
+    $("#siri-start").fadeIn(300);
+
+   // 🔥 increase wave energy
+    if(window.siriWave){
+        window.siriWave.setAmplitude(2);
+    }
+    
+
+    // 🔥 AUTO RETURN AFTER 3 SEC
+    setTimeout(function(){
+
+        $("#siri-start").fadeOut(500, function(){
+            $("#main-ui").fadeIn(500);
+        });
+
+        if(window.siriWave){
+            window.siriWave.setAmplitude(1);
+        }
+
+    }, 3000);
+
+});
 });
