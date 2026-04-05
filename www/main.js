@@ -75,7 +75,7 @@ $(document).ready(function(){
     // 🔥 show siri screen
     $("#siri-start").fadeIn(300);
     
-    eel.takecommand()()
+    eel.allCommands()()
     
 
     // 🔥 increase wave energy (cool effect)

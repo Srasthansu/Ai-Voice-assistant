@@ -1,44 +1,75 @@
 import pyttsx3
 import speech_recognition as sr
-import eel 
+import eel
+import sounddevice as sd
+import numpy as np
+import time
+
+# -----------------------
+# Initialize TTS engine once
+# -----------------------
+engine = pyttsx3.init("sapi5")
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[0].id)
+engine.setProperty('rate', 174)
 
 def speak(text):
- engine = pyttsx3.init("sapi5")
- voices = engine.getProperty('voices')
- engine.setProperty('voice', voices[0].id)
- engine.setProperty('rate', 174)
- print(voices)
- engine.say(text)
- engine.runAndWait()
+    """Speak the given text using pyttsx3."""
+    eel.DisplayMessage(text)
+    engine.say(text)
+    engine.runAndWait()
 
-@eel.expose
+# -----------------------
+# Voice recognition
+# -----------------------
+
 def takecommand():
-  
-  r=sr.Recognizer()
-
-  with sr.Microphone() as source:
+    r = sr.Recognizer()
+    
+    fs = 16000      # Sampling rate
+    duration = 5    # seconds to record
     print("Listening...")
     eel.DisplayMessage("Listening...")
-    r.pause_threshold = 1
-    r.adjust_for_ambient_noise(source)
-    audio = r.listen(source, 10, 6)
 
-  try:
-      print("recognizing...")
-      eel.DisplayMessage("recognizing...")
-      query = r.recognize_google(audio, language='en-in')
-      print(f"User said: {query}")
-      eel.DisplayMessage(query)
-      speak(query)
-      eel.ShowHood()
+    # Record audio using sounddevice
+    recording = sd.rec(int(duration * fs), samplerate=fs, channels=1, dtype='int16')
+    sd.wait()
 
+    # Convert to AudioData for speech_recognition
+    audio_data = sr.AudioData(recording.tobytes(), fs, 2)  # 16-bit audio
+    
+    try:
+        print("Recognizing...")
+        eel.DisplayMessage("Recognizing...")
+        query = r.recognize_google(audio_data, language='en-in')
+        print(f"User said: {query}")
+        eel.DisplayMessage(query)
+        time.sleep(2)
+        # Speak the recognized text
+        
+        
+    except Exception as e:
+        print("Error:", e)
+        return ""
+    
+    return query.lower()
 
-  except Exception as e:
-        return""
-
-  return query.lower()
-
-
-  
-     
-
+@eel.expose
+def allCommands():
+    
+    query=takecommand()
+    print(query)
+    
+    if "open" in query:
+        from engine.features import openCommand
+        openCommand(query)
+    
+    elif "on youtube":
+        from engine.features import PlayYoutube
+        PlayYoutube(query)
+    
+    
+    else:
+        print("Not run")    
+    
+    eel.ShowHood()

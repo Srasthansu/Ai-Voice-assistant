@@ -1,5 +1,6 @@
 import os
 import eel
+import pygame
 
 from engine.features import *
 from engine.command import *
