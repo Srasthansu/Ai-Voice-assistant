@@ -15,6 +15,7 @@ import sqlite3
 import sounddevice as sd
 
 from engine.helper import extract_yt_term
+from hugchat import hugchat
 
 conn = sqlite3.connect("Luffy.db")
 cursor = conn.cursor()
@@ -121,3 +122,16 @@ def hotword():
     finally:
         if porcupine is not None:
             porcupine.delete()
+            
+            
+
+# chat bot 
+def chatBot(query):
+    user_input = query.lower()
+    chatbot = hugchat.ChatBot(cookie_path="engine\cookies.json")
+    id = chatbot.new_conversation()
+    chatbot.change_conversation(id)
+    response =  chatbot.chat(user_input)
+    print(response)
+    speak(response)
+    return response

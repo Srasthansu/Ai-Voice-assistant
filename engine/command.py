@@ -15,6 +15,7 @@ engine.setProperty('rate', 174)
 
 def speak(text):
     """Speak the given text using pyttsx3."""
+    text=str(text)
     eel.DisplayMessage(text)
     engine.say(text)
     eel.receiverText(text)
@@ -82,7 +83,8 @@ def allCommands(message=1):
             PlayYoutube(query)
             
         else:
-            print("Not run")   
+            from engine.features import chatBot
+            chatBot(query)
                 
     except Exception as e:
         print("error", e) 
