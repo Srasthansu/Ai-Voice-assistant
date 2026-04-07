@@ -85,4 +85,16 @@ $(document).ready(function(){
 
 });
 
+ function doc_keyUp(e) {
+        // this would test for whichever key is 40 (down arrow) and the ctrl key at the same time
+
+        if (e.key === 'j' && e.metaKey) {
+            
+            $("#main-ui").fadeOut(300);
+            $("#siri-start").fadeIn(300);
+            eel.allCommands()()
+        }
+    }
+    document.addEventListener('keyup', doc_keyUp, false);
+
 });

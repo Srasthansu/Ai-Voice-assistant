@@ -1,5 +1,9 @@
 import re
+import struct
+import time
 
+import numpy as np
+import pvporcupine
 import pygame
 import eel
 import os
@@ -8,6 +12,9 @@ from engine.config import ASSISTANT_NAME
 import pywhatkit as kit
 import webbrowser
 import sqlite3
+import sounddevice as sd
+
+from engine.helper import extract_yt_term
 
 conn = sqlite3.connect("Luffy.db")
 cursor = conn.cursor()
@@ -68,16 +75,49 @@ def PlayYoutube(query):
     kit.playonyt(search_term)
     
     
-def extract_yt_term(command):
-    
-    # Define a regular expession pattern to capture a song name
-    
-    pattern = r'play\s+(.*?)\s+on\s+youtube'
-    
-    # Use re.search to find the match in the command
-    
-    match = re.search(pattern, command, re.IGNORECASE)
-    
-    # if the match is found return the extracte song name; otherwise return none
-    
-    return match.group(1) if match else None
+def hotword():
+     
+    porcupine = None
+    audio_stream = None
+
+    try:
+        # pre trained keywords    
+        porcupine = pvporcupine.create(keywords=["jarvis", "alexa"]) 
+
+        def callback(indata, frames, time_info, status):
+            if status:
+                print(status)
+
+            pcm = np.frombuffer(indata, dtype=np.int16)
+
+            for i in range(0, len(pcm), porcupine.frame_length):
+                frame = pcm[i:i + porcupine.frame_length]
+
+                if len(frame) == porcupine.frame_length:
+                    keyword_index = porcupine.process(frame)
+
+                    if keyword_index >= 0:
+                        print("hotword detected")
+
+                        import pyautogui as autogui
+                        autogui.keyDown("win")
+                        autogui.press("j")
+                        time.sleep(2)
+                        autogui.keyUp("win")
+
+        with sd.InputStream(
+            samplerate=porcupine.sample_rate,
+            channels=1,
+            dtype='int16',
+            blocksize=porcupine.frame_length,
+            callback=callback
+        ):
+            while True:
+                time.sleep(0.1)
+
+    except Exception as e:
+        print("Error:", e)
+
+    finally:
+        if porcupine is not None:
+            porcupine.delete()

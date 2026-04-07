@@ -27,7 +27,7 @@ def takecommand():
     r = sr.Recognizer()
     
     fs = 16000      # Sampling rate
-    duration = 5    # seconds to record
+    duration = 3    # seconds to record
     print("Listening...")
     eel.DisplayMessage("Listening...")
 
@@ -54,22 +54,27 @@ def takecommand():
     
     return query.lower()
 
+
+
 @eel.expose
 def allCommands():
     
-    query=takecommand()
-    print(query)
-    
-    if "open" in query:
-        from engine.features import openCommand
-        openCommand(query)
-    
-    elif "on youtube":
-        from engine.features import PlayYoutube
-        PlayYoutube(query)
-    
-    
-    else:
-        print("Not run")    
+    try:
+        query = takecommand()
+        print(query)
+
+        if "open" in query:
+            from engine.features import openCommand
+            openCommand(query)
+            
+        elif "youtube" in query:
+            from engine.features import PlayYoutube
+            PlayYoutube(query)
+            
+        else:
+            print("Not run")   
+                
+    except Exception as e:
+        print("error", e) 
     
     eel.ShowHood()
