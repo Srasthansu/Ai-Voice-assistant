@@ -17,6 +17,7 @@ def speak(text):
     """Speak the given text using pyttsx3."""
     eel.DisplayMessage(text)
     engine.say(text)
+    eel.receiverText(text)
     engine.runAndWait()
 
 # -----------------------
@@ -57,11 +58,20 @@ def takecommand():
 
 
 @eel.expose
-def allCommands():
+def allCommands(message=1):
     
-    try:
+    if message == 1:
         query = takecommand()
         print(query)
+        eel.senderText(query)
+        
+    else:
+        query = message
+        eel.senderText(query)
+     
+    
+    try:
+        
 
         if "open" in query:
             from engine.features import openCommand
